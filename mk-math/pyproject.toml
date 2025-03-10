@@ -16,6 +16,8 @@ dev = [
   "ruff",
   # Test
   "pytest",
+  "pydantic",
+
 ]
 
 [project.scripts]
