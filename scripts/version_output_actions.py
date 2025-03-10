@@ -18,8 +18,11 @@ def json_to_output_versions(file_path):
         for k, v_list in data.items():
             for v in v_list:
                 output_dict["include"].append({"numpy_version": k, "python_version": v})
-        print(json.dumps(output_dict, indent=4))
+        # print(json.dumps(output_dict, indent=4))
+# "matrix={\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
 
+        # frmat it accorindg above commented string
+        print(f"matrix={json.dumps(output_dict, indent=4)}")
 
 
 if __name__ == '__main__':
