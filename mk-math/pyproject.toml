@@ -9,6 +9,15 @@ authors = [
 requires-python = ">=3.13"
 dependencies = []
 
+[project.optional-dependencies]
+dev = [
+  # Lint/format
+  "pre-commit",
+  "ruff",
+  # Test
+  "pytest",
+]
+
 [project.scripts]
 mk-math = "mk_math:main"
 
