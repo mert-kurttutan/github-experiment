@@ -38,15 +38,25 @@ jobs:
     needs: configure
     strategy:
       matrix:
-        id-number: [0, 1]
+        id-number: [0, 1, 2, 3, 4, 5]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Set up version variables
+        id: set-version
+        run: |
+          echo "Tested version ${{ matrix.id-number }}"
+          NUMPY_VERSION=$(python scripts/get_version.py ${{ matrix.id-number }} --variable-name=numpy)
+          echo "NUMPY_VERSION=$NUMPY_VERSION" >> $GITHUB_OUTPUT
+          PYTHON_VERSION=$(python scripts/get_version.py ${{ matrix.id-number }} --variable-name=python)
+          echo "PYTHON_VERSION=$PYTHON_VERSION" >> $GITHUB_OUTPUT
+
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.9'
+          python-version: steps.set-version.outputs.PYTHON_VERSION
 
       - name: Install dependencies
         run: |
@@ -56,5 +66,4 @@ jobs:
       - name: Test with ${{ matrix.id-number }}
         run: |
           pytest tests
-          echo "Tested version ${{ matrix.id-number }}"
-          python scripts/get_version.py ${{ matrix.id-number }}
+
