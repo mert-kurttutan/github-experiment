@@ -11,7 +11,7 @@ jobs:
     # uses GITHub_outouput ans matrix to run test
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.configure.outputs.matrix }}
+      ID_LIST: ${{ steps.configure.outputs.ID_LIST }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -29,7 +29,8 @@ jobs:
       - name: Configure
         id: configure
         run: |
-          python scripts/version_output_actions.py
+          ID_LIST=$(python scripts/get_version.py 0 --variable-name=ids)
+          echo "ID_LIST=$ID_LIST" >> $GITHUB_OUTPUT
 
 
   test:
@@ -39,7 +40,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        id-number: [0, 1, 2, 3, 4, 5]
+        # id-number: [0, 1, 2, 3, 4, 5]
+        id-number: ${{needs.configure.outputs.ID_LIST}}
     steps:
       - name: Checkout
         uses: actions/checkout@v2

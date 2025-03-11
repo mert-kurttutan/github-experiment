@@ -30,5 +30,7 @@ if __name__ == '__main__':
         print(f"{version_list[version_id]['numpy_version']}")
     elif variable_name == "python":
         print(f"{version_list[version_id]['python_version']}")
+    elif variable_name == "length":
+        print(f"{[i for i in range(len(version_list))]}")
     else:
         raise ValueError("variable-name should be numpy_version or python_version")
