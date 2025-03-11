@@ -56,7 +56,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: steps.set-version.outputs.PYTHON_VERSION
+          python-version: ${{ steps.set-version.outputs.PYTHON_VERSION }}
 
       - name: Install dependencies
         run: |
