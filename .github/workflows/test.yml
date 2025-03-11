@@ -37,7 +37,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: configure
     strategy:
-      matrix: ${{ fromJson(needs.configure.outputs.matrix) }}
+      matrix:
+        id-number: [0, 1]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -52,6 +53,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e "mk-math[dev]"
 
-      - name: Test with ${{ matrix.version }}
+      - name: Test with ${{ matrix.id-number }}
         run: |
           pytest tests
+          echo "Tested version ${{ matrix.id-number }}"
+          python scripts/get_version.py
