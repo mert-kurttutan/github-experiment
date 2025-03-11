@@ -57,5 +57,4 @@ jobs:
         run: |
           pytest tests
           echo "Tested version ${{ matrix.id-number }}"
-          // prvoide the id-number as input to the test script
           python scripts/get_version.py ${{ matrix.id-number }}
