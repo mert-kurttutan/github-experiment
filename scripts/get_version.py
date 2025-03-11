@@ -1,10 +1,9 @@
 
 
 if __name__ == '__main__':
-    # take single integer input
-    n = int(input())
-    # take list of integers as input
-    if n == 0:
-        print(f"id: {n}")
-    else:
-        print(f"id not zero: {n}")
+    import argparse
+    # take single cli integer argument
+    parser = argparse.ArgumentParser(description="This script takes a single integer argument")
+    parser.add_argument("integer", type=int, help="an integer")
+    args = parser.parse_args()
+    print(f"Argument: {args.integer}")
